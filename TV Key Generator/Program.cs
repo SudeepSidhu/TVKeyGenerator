@@ -14,7 +14,31 @@ namespace TV_Key_Generator
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            string[] args = Environment.GetCommandLineArgs();
+            bool installQuietly = false;
+
+            foreach (string arg in args)
+            {
+                switch (arg.Substring(0, 2).ToLower())
+                {
+                    case "/q":
+                        installQuietly = true;
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+            if (installQuietly)
+            {
+                QuietInstaller.install();
+            }
+            else
+            {
+                Application.Run(new Form1());
+            }
         }
     }
 }
